@@ -1,4 +1,4 @@
-# Java library which provides developers notification via messengers 
+# Java library to serialize and deserialize Java objects to (and from) JSON
 
 [![Build Status](https://travis-ci.org/fedorchuck/dnjson.svg?branch=master)](https://travis-ci.org/fedorchuck/dnjson)
 [![Apache License Version 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-brightgreen.svg)](https://github.com/fedorchuck/dnjson/blob/master/LICENSE.md)
@@ -6,26 +6,15 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a58d74a6b6443c28a62656de1587f49)](https://www.codacy.com/app/vl.fedorchuck/dnjson?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fedorchuck/dnjson&amp;utm_campaign=Badge_Grade)
 
 ## Introduction
-Sometimes every developer needs to know about the event that happened as soon as possible. For example, about incorrect 
-work of the server or about changing the third-party rest-api, about anything, depending on the specifics of the project.
- 
-There are many ways to inform developers about such events - all sorts of services, loggers. But most of them send 
-notifications to the mail or a issue tracking system of a different type, which is not always convenient and not always possible to track quickly.
-
-This library sending notifications to messengers. Just create and connect a bot in the messenger that your team using 
-and that is supported by this library. For now it is Slack and Telegram. Add the library to the project, add it configuration (access keys to the bot that you created), add lines, where it is needed, to send message and you receive messages when something happened.
-
-Also, this library have monitoring module. It can monitor current usage of RAM and disk memory, set limits of their 
-usage and in case of overspending - informs to the selected messengers.
+DNJson uses reflection so it does not require additional modifications to classes of (de)serialized objects. In fact it just needs the class to have defined default no-args constructor (not entirely true, see Features).
 
 This library compatible with Java 6+
-
 
 ## Contents
 
 - [Getting started](#getting-started)
   - [Download](#download)
-  - [Setup](#setup)
+- [Usage](#usage)
 - [Changelog](#changelog)
 - [License](#license)
 
@@ -46,34 +35,122 @@ Maven:
 JAR-files:  
 https://oss.sonatype.org/content/repositories/releases/com/github/fedorchuck/dnjson/
 
-### Setup
-The library is configured by environment variables or system properties. Supported variable is `DN`. It is single 
-environment variable witch required if you use this library. Accepted value is JSON:
-```json
-{
-	"messenger": [{
-		"name": "SLACK",
-		"token": "SLACK_TOKEN",
-		"channel": "SLACK_CHANNEL"
-	}, {
-		"name": "TELEGRAM",
-		"token": "TELEGRAM_TOKEN",
-		"channel": "TELEGRAM_CHANNEL"
-	}],
-	"show_whole_log_details": true,
-	"protection_from_spam": true,
-	"project_name": "Where this library will be invoked",
-	"connect_timeout": 5000,
-	"user_agent": "Mozilla/5.0",
-	"monitoring": {
-		"period": 5,
-		"unit": "seconds",
-		"max_ram": 90,
-		"max_disk": 90,
-		"disk_consumption_rate": 2
-	}
-}
+### Usage
+The following example demonstrates the most basic usage of DNJson when serializing a sample object:
+
+```groovy    
+    public class Car {
+        private String manufacturer;
+        private String model;
+        private Double capacity;
+        private boolean accident;
+    
+        private Car() {
+        }
+    
+        public Car(String manufacturer, String model, Double capacity, boolean accident) {
+            this.manufacturer = manufacturer;
+            this.model = model;
+            this.capacity = capacity;
+            this.accident = accident;
+        }
+    
+        @Override
+        public String toString() {
+            return("Manufacturer: " + manufacturer + ", " + "Model: " + model + ",
+                    " + "Capacity: " + capacity + ", " + "Accident: " + accident);
+        }
+    }
+    
+    public class Person {
+        private String name;
+        private String surname;
+        private Car[] cars;
+        private int phone;
+        private transient int age;
+    
+        private Person() {
+        }
+    
+        public Person(String name, String surname, int phone, int age, Car[] cars) {
+            this.name = name;
+            this.surname = surname;
+            this.cars = cars;
+            this.phone = phone;
+            this.age = age;
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+    
+            sb.append("Name: " + name + " " + surname + "\n");
+            sb.append("Phone: " + phone + "\n");
+            sb.append("Age: " + age + "\n");
+    
+            int i = 0;
+            for (Car item : cars) {
+                i++;
+                sb.append("Car " + i + ": " + item + "\n");
+            }
+    
+            return sb.toString();
+        }
+    }
 ```
+After calling    
+```groovy    
+    DNJson dnjson = new DNJson();
+    Car audi = new Car("Audi", "A4", 1.8, false);
+    Car skoda = new Car("Škoda", "Octavia", 2.0, true);
+    Car[] cars = {audi, skoda};
+    Person johnDoe = new Person("John", "Doe", 245987453, 35, cars);
+    System.out.println(dnjson.toJson(johnDoe));
+```    
+you will get this output:
+```json    
+    {
+        "name": "John",
+        "surname": "Doe",
+        "cars": [
+            {
+                "manufacturer": "Audi",
+                "model": "A4",
+                "capacity": 1.8,
+                "accident": false
+            },
+            {
+                "manufacturer": "Škoda",
+                "model": "Octavia",
+                "capacity": 2,
+                "accident": true
+            }
+        ],
+        "phone": 245987453
+    }
+```    
+Since the Person's field `age` is marked as transient, it is not included in the output.
+    
+To deserialize output produced by last example, you can execute the following code:
+```groovy    
+    DNJson dnjson = new DNJson();
+    String json =
+    "{\"name\":\"John\",\"surname\":\"Doe\",\"cars\":
+    [{\"manufacturer\":\"Audi\",\"model\":\"A4\",\"capacity\":1.8,\"accident\":false},
+    {\"manufacturer\":\"Škoda\",\"model\":\"Octavia\",\"capacity\":2.0,\"accident\":true}],
+    \"phone\":245987453}";
+    Person johnDoe = dnjson.fromJson(json, Person.class);
+    System.out.println(johnDoe.toString());
+```    
+And the following output will be generated:
+```    
+    Name: John Doe
+    Phone: 245987453
+    Age: 0
+    Car 1: Manufacturer: Audi, Model: A4, Capacity: 1.8, Accident: false
+    Car 2: Manufacturer: Škoda, Model: Octavia, Capacity: 2.0, Accident: true
+```    
+
 ## Changelog
 See [changelog file](https://github.com/fedorchuck/dnjson/blob/master/CHANGELOG.md)
 
