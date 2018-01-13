@@ -4,6 +4,7 @@
 [![Apache License Version 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-brightgreen.svg)](https://github.com/fedorchuck/dnjson/blob/master/LICENSE.md)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fedorchuck/dnjson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fedorchuck/dnjson)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a58d74a6b6443c28a62656de1587f49)](https://www.codacy.com/app/vl.fedorchuck/dnjson?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fedorchuck/dnjson&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4a58d74a6b6443c28a62656de1587f49)](https://www.codacy.com/app/vl.fedorchuck/dnjson?utm_source=github.com&utm_medium=referral&utm_content=fedorchuck/dnjson&utm_campaign=Badge_Coverage)
 
 ## Introduction
 DNJson uses reflection so it does not require additional modifications to classes of (de)serialized objects. In fact it just needs the class to have defined default no-args constructor (not entirely true, see Features).
