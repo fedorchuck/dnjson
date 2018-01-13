@@ -5,30 +5,21 @@ sudo: required
 install: /bin/true
 
 jdk:
- - openjdk6
  - openjdk7
  - oraclejdk8
  - oraclejdk9
 
 before_install:
-# - chmod +x continuousIntegrationBuild.sh
-# - ./continuousIntegrationBuild.sh
  - sudo apt-get install jq
  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
 
 before_script:
-# - wget https://services.gradle.org/distributions/gradle-4.4-bin.zip
-# - unzip gradle-4.4-bin.zip
-# - export GRADLE_HOME=$PWD/gradle-4.4
- - wget https://services.gradle.org/distributions/gradle-2.12-bin.zip
- - unzip gradle-2.12-bin.zip
- - export GRADLE_HOME=$PWD/gradle-2.12
+ - wget https://services.gradle.org/distributions/gradle-4.4-bin.zip
+ - unzip gradle-4.4-bin.zip
+ - export GRADLE_HOME=$PWD/gradle-4.4
  - export PATH=$GRADLE_HOME/bin:$PATH
- #- echo "before_install"
- #- if [ $JAVA_HOME = "/usr/lib/jvm/java-7-openjdk-amd64" ]; then echo $JAVA_HOME; | sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"; | sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security; | echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider"; | sudo tee -a /etc/java-7-openjdk/security/java.security; else echo $JAVA_HOME; fi;
 
 script:
-# - gradle wrapper
  - gradle build -i -d
  - gradle assemble
  - gradle check -i -d

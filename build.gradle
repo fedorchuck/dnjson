@@ -197,7 +197,7 @@ jacocoTestReport {
             logger.quiet("------------------ Code Coverage Failed -----------------------")
             failures.each { logger.quiet(it) }
             logger.quiet("---------------------------------------------------------------")
-//            throw new GradleException("Code coverage failed")
+            throw new GradleException("Code coverage failed")
         } else{
             logger.quiet("Passed Code Coverage Checks")
         }
@@ -234,7 +234,3 @@ task (codacyLocs) << {
         println jarName
     }
 }
-
-//task wrapper(type: Wrapper) {
-//    gradleVersion = '2.12'
-//}
