@@ -20,7 +20,7 @@ package com.github.fedorchuck.dnjson;
  * Interface defined to contain ids accessible with {@link JsonToken#id}. Needed to define these constants in
  * {@link JsonToken} itself, as static constants.
  *
- * @since 2.0
+ * @since 0.1.0
  */
 interface JsonTokenId {
 

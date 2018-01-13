@@ -26,9 +26,9 @@ import java.util.Arrays;
  * @see <a href="https://tools.ietf.org/html/rfc4627">https://tools.ietf.org/html/rfc4627</a> chapter 2.5
  * @see <a href="http://www.json.org/">http://www.json.org/</a>
  *
- * <p> <b>Author</b>: <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a> </p>
- * @author <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a>
- * @since 0.1.2
+ * <p> <b>Author</b>: <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a> </p>
+ * @author <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a>
+ * @since 0.1.0
  */
 class JsonWriter {
 
@@ -40,7 +40,7 @@ class JsonWriter {
 
     /**
      * Write character <b>{</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeObjectBegin() throws IOException {
         json.append('{');
@@ -48,7 +48,7 @@ class JsonWriter {
 
     /**
      * Write character <b>}</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeObjectEnd() throws IOException {
         json.append('}');
@@ -56,7 +56,7 @@ class JsonWriter {
 
     /**
      * Write character <b>[</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeArrayBegin() throws IOException {
         json.append('[');
@@ -64,7 +64,7 @@ class JsonWriter {
 
     /**
      * Write character <b>]</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeArrayEnd() throws IOException {
         json.append(']');
@@ -74,7 +74,7 @@ class JsonWriter {
      * Writes downstream string, escaped characters, adds on both sides characters <b>"</b>
      * @param value to write
      *
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeString(String value) throws IOException {
         value = value.replace("\"","\\\"");
@@ -92,7 +92,7 @@ class JsonWriter {
      * Writes downstream number
      * @param value to write
      *
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeNumber(Number value) throws IOException {
         json.append(value.toString());
@@ -102,7 +102,7 @@ class JsonWriter {
      * Writes downstream boolean value
      * @param value to write
      *
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeBoolean(Boolean value) throws IOException {
         if (value==null)
@@ -117,7 +117,7 @@ class JsonWriter {
 
     /**
      * Writes downstream null value
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeNull() throws IOException {
         json.append("null");
@@ -125,7 +125,7 @@ class JsonWriter {
 
     /**
      * Write character <b>,</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writeSeparator() throws IOException {
         json.append(',');
@@ -133,7 +133,7 @@ class JsonWriter {
 
     /**
      * Write character <b>:</b>
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void writePropertySeparator() throws IOException {
         json.append(":");
@@ -149,7 +149,7 @@ class JsonWriter {
      * for example a file, then flushing the stream guarantees only that bytes previously written to the stream
      * are passed to the operating system for writing; it does not guarantee that they are actually written to
      * a physical device such as a disk drive.
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     void flush() throws IOException {
         json.flush();

@@ -19,7 +19,7 @@ package com.github.fedorchuck.dnjson;
 /**
  * Enumeration for basic token types used for returning results of parsing JSON content.
  *
- * @since 0.2.0
+ * @since 0.1.0
  */
 enum JsonToken {
 
@@ -108,15 +108,15 @@ enum JsonToken {
     }
 
     /**
-     * @since 0.2.0
+     * @since 0.1.0
      */
     public final String asString() { return serialized; }
     /**
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     public final boolean isNumeric() { return isNumber; }
     /**
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     public final boolean isBoolean() { return isBoolean; }
 }

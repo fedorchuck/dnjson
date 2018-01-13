@@ -27,9 +27,9 @@ import java.io.Reader;
  * This class contains method for serialise and deserialize.
  * The main conversion API is defined in {@link JsonSerializer} and {@link JsonDeserializer}.
  *
- * <p> <b>Author</b>: <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a> </p>
- * @author <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a>
- * @since 0.2.0
+ * <p> <b>Author</b>: <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a> </p>
+ * @author <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a>
+ * @since 0.1.0
  */
 public class Json {
 
@@ -40,7 +40,7 @@ public class Json {
      * @return JSON as string
      * @throws JsonEncodeException if the input Object cannot be converted to JSON structure
      * (or has other mismatch issues)
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     public static String encode(Object obj) throws JsonEncodeException {
         try {
@@ -59,7 +59,7 @@ public class Json {
      * @return instance of expected type with deserialize JSON value
      * @throws JsonDecodeException if the input JSON structure does not match structure
      * expected for result type (or has other mismatch issues)
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     public static <T> T decodeValue(String str, Class<T> clazz) throws JsonDecodeException {
         //todo check is str is null or empty
@@ -79,7 +79,7 @@ public class Json {
      * @return instance of expected type with deserialize JSON value
      * @throws JsonDecodeException if the input JSON structure does not match structure
      * expected for result type (or has other mismatch issues)
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     public static <T> T decodeValue(InputStream inputStream, Class<T> clazz) throws JsonDecodeException {
         try {

@@ -35,9 +35,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * Java objects (instances of JDK provided core classes, beans), and matching JSON constructs.
  * The main conversion API is defined in {@link JsonWriter}.
  *
- * <p> <b>Author</b>: <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a> </p>
- * @author <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a>
- * @since 0.1.2
+ * <p> <b>Author</b>: <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a> </p>
+ * @author <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a>
+ * @since 0.1.0
  */
 class JsonSerializer {
     private JsonWriter jsonWriter;
@@ -53,7 +53,7 @@ class JsonSerializer {
      * @param obj to convert
      * @throws IOException when cannot write json
      * @throws IllegalAccessException when cannot get field value
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     String writeValueAsString(Object obj) throws IOException, IllegalAccessException {
         jsonWriter.writeObjectBegin();
@@ -99,7 +99,7 @@ class JsonSerializer {
      * @param object to convert
      * @return {@link List} of {@link Field} which is serializable and have not null value
      * @throws IllegalArgumentException when cannot get field value
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private List<Field> getSerializableNotNullFields(Object object) throws IllegalAccessException {
         List<Field> fields = Arrays.asList(object.getClass().getDeclaredFields());
@@ -118,7 +118,7 @@ class JsonSerializer {
      * @param value of field
      * @throws IOException when cannot write json
      * @throws IllegalAccessException when cannot get field value
-     * @since 0.1.2
+     * @since 0.1.0
      **/
     private void writeValue(Type type, Object value) throws IOException, IllegalAccessException {
         if (type == String.class) {

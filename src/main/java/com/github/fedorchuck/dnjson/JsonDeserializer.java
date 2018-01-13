@@ -30,9 +30,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * Java objects (instances of JDK provided core classes, beans), and matching JSON constructs.
  * The main conversion API is defined in {@link JsonParser}.
  *
- * <p> <b>Author</b>: <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a> </p>
- * @author <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a>
- * @since 0.2.0
+ * <p> <b>Author</b>: <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a> </p>
+ * @author <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a>
+ * @since 0.1.0
  */
 class JsonDeserializer {
     /**
@@ -44,7 +44,7 @@ class JsonDeserializer {
      * @throws InvocationTargetException when got problem creating class from inputted JSON and class
      * @throws InstantiationException when got problem creating class from inputted JSON and class
      * @return created class
-     * @since 0.2.0
+     * @since 0.1.0
      */
     @SuppressWarnings("unchecked")
     <T> T readValue(String json, Class<T> clazz)
@@ -96,7 +96,7 @@ class JsonDeserializer {
      * @throws InvocationTargetException when got problem creating class from inputted JSON and class
      * @throws InstantiationException when got problem creating class from inputted JSON and class
      * @return list of mapped JSON objects
-     * @since 0.2.0
+     * @since 0.1.0
      */
     private List<Object> readArray(String json, Type type)
             throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException
@@ -118,7 +118,7 @@ class JsonDeserializer {
      * @param field where will be set value
      * @param value which will be setting
      * @throws IllegalAccessException when got problem creating class from inputted JSON and class
-     * @since 0.2.0
+     * @since 0.1.0
      */
     private <T> void setField(T instance, Field field, Object value) throws IllegalAccessException {
         boolean accessible = field.isAccessible();
@@ -167,7 +167,7 @@ class JsonDeserializer {
      * Method convert JSON content from given JSON as String to Map<<code>fieldName, jsonValue</code>>
      * @param json which will be converted to Map
      * @return Map with <code>fieldName</code> as key and <code>jsonValue</code> as value of converted JSON
-     * @since 0.2.0
+     * @since 0.1.0
      */
     Map<String, String> jsonToMap(String json) {
         json = removeObjectBrackets(json);
@@ -207,6 +207,7 @@ class JsonDeserializer {
                     throw new JsonProcessingException(token.asString(), new IllegalStateException("Invalid token. "));
             }
         }
+        //noinspection UnusedAssignment
         jsonParser = null;
         return response;
     }
@@ -216,7 +217,7 @@ class JsonDeserializer {
      * {@link JsonToken#START_OBJECT} and {@link JsonToken#END_OBJECT} from inputted string.
      * @param json - inputted string
      * @return input string without brackets
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private String removeObjectBrackets(String json) {
         int first = 0, second = 0;
@@ -242,7 +243,7 @@ class JsonDeserializer {
      * from inputted string.
      * @param json - inputted string
      * @return input string without brackets
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private String removeArrayBrackets(String json) {
         int first = 0, second = 0;

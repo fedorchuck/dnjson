@@ -24,9 +24,9 @@ import java.util.List;
 /**
  * Class contain methods for parsing JSON
  *
- * <p> <b>Author</b>: <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a> </p>
- * @author <a href="http://vl-fedorchuck.rhcloud.com/">Volodymyr Fedorchuk</a>
- * @since 0.2.0
+ * <p> <b>Author</b>: <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a> </p>
+ * @author <a href="https://vl-fedorchuck.firebaseapp.com/">Volodymyr Fedorchuk</a>
+ * @since 0.1.0
  */
 class JsonParser {
     /**
@@ -78,7 +78,7 @@ class JsonParser {
     /**
      * Return answer: is JSON has next element
      * @return true if current JSON contains next element and false if not
-     * @since 0.2.0
+     * @since 0.1.0
      * */
     boolean hasNext() {
         return currentPosition < lastIndexOfString;
@@ -87,7 +87,7 @@ class JsonParser {
     /**
      * Return field name
      * @return field name
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getFieldName() {
         char currentChar;
@@ -124,7 +124,7 @@ class JsonParser {
     /**
      * Analise what the object are next
      * @return {@link JsonToken} with characteristic of the next object
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     JsonToken getFieldValueToken() {
         skipPropertySeparator();
@@ -173,7 +173,7 @@ class JsonParser {
     /**
      * Return value of field for string
      * @return string value of field
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getStringValue() {
         char currentChar;
@@ -219,7 +219,7 @@ class JsonParser {
     /**
      * Return value of field for JSON array
      * @return JSON array value of field as string
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getArrayValue() {
         StringBuilder jsonArray = new StringBuilder();
@@ -246,7 +246,7 @@ class JsonParser {
     /**
      * Return value of field for JSON array
      * @return JSON array value of field as string
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     List<String> getJsonArrayValue() {
         List<String> jsonArray = new ArrayList<String>(0);
@@ -279,7 +279,7 @@ class JsonParser {
     /**
      * Return value of field for JSON object
      * @return JSON object value of field as string
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getObjectValue() {
         StringBuilder jsonObject = new StringBuilder();
@@ -304,7 +304,7 @@ class JsonParser {
     /**
      * Return boolean value of field as string
      * @return boolean value of field as string
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getBooleanValue() {
         if ((valueToken!=null) && (valueToken.isBoolean()))
@@ -327,7 +327,7 @@ class JsonParser {
     /**
      * Return numeric value of field as string
      * @return numeric value of field as string
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     String getNumericValue() {
         if ((valueToken!=null) && (valueToken.isNumeric()))
@@ -347,7 +347,7 @@ class JsonParser {
      *     <b>}</b>
      * </code>
      *
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     void skipSeparator() {
         char currentChar;
@@ -374,7 +374,7 @@ class JsonParser {
      *      <li> {@link JsonToken#VALUE_NUMBER_INT} if sequence equals to integer number;</li>
      *      <li> {@link JsonToken#VALUE_STRING} if sequence equals to string sequence;</li>
      * </ul>
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private JsonToken matchNumber() {
         char currentChar;
@@ -414,7 +414,7 @@ class JsonParser {
      *      <li> {@link JsonToken#VALUE_NULL} if sequence equals to <code>null</code>;</li>
      *      <li> {@link JsonToken#VALUE_STRING} if sequence equals to string sequence;</li>
      * </ul>
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private JsonToken matchNull() {
         if (
@@ -437,7 +437,7 @@ class JsonParser {
      *      <li> {@link JsonToken#VALUE_FALSE} if sequence equals to <code>false</code>;</li>
      *      <li> {@link JsonToken#VALUE_STRING} if sequence equals to string sequence;</li>
      * </ul>
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private JsonToken matchFalse() {
         if (
@@ -461,7 +461,7 @@ class JsonParser {
      *      <li> {@link JsonToken#VALUE_TRUE} if sequence equals to <code>true</code>;</li>
      *      <li> {@link JsonToken#VALUE_STRING} if sequence equals to string sequence;</li>
      * </ul>
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private JsonToken matchTrue() {
         if (
@@ -480,7 +480,7 @@ class JsonParser {
     /**
      * Changes {@link JsonParser#currentPosition} to the next field name. Skip
      * {@link JsonWriter#writePropertySeparator()} <bold>:</bold>
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private void skipPropertySeparator() {
         if (json.charAt(currentPosition)!='\"')
@@ -533,7 +533,7 @@ class JsonParser {
 
     /**
      * Changes {@link JsonParser#currentPosition} to the next char position, except <code>space</code>.
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private void moveToNextCharPosition(int i) {
         if ((i >= lastIndexOfString))
@@ -558,7 +558,7 @@ class JsonParser {
     /**
      * Return next character and his position from current position ignoring space.
      * @return Object array which first element is next character and second element is next character position
-     * @since 0.2.0
+     * @since 0.1.0
      **/
     private Object[] getNextCharIgnoringSpace(int currentPosition) {
         if (currentPosition - 1 > lastIndexOfString || currentPosition < 0)
