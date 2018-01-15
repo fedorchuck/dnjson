@@ -25,6 +25,10 @@ package com.github.fedorchuck.dnjson.exceptions;
  */
 public class JsonEncodeException extends RuntimeException {
 
+  public JsonEncodeException(String message) {
+    super(message);
+  }
+
   public JsonEncodeException(String message, Throwable cause) {
     super(message, cause);
   }

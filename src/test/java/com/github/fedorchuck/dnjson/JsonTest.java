@@ -16,7 +16,8 @@
 
 package com.github.fedorchuck.dnjson;
 
-import com.github.fedorchuck.dnjson.model.*;
+import com.github.fedorchuck.dnjson.exceptions.JsonDecodeException;
+import com.github.fedorchuck.dnjson.exceptions.JsonEncodeException;
 import com.github.fedorchuck.dnjson.model.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,6 +51,11 @@ public class JsonTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test(expected = JsonEncodeException.class)
+    public void testEncodeNullValue() {
+        Json.encode(null);
+    }
+
     @Test
     public void testDecodeValue() {
         String input = "{\"ok\":true,\"result\":{\"message_id\":131,\"from\":{\"id\":317208208,\"first_name\":\"developers notification\",\"username\":\"developers_notification_bot\"},\"chat\":{\"id\":-197235129,\"title\":\"test group developers notification\",\"type\":\"group\",\"all_members_are_administrators\":true},\"date\":1494064518,\"text\":\"Project: developers-notification \\nMessage: test with full method signature \\nThrowable: java.lang.Throwable: abcd \\nStack trace: com.github.fedorchuck.developers_notification.example.B.b(B.java:28)\\ncom.github.fedorchuck.developers_notification.example.A.a(A.java:25)\\ncom.github.fedorchuck.developers_notification.example.IntegrationTest.main(IntegrationTest.java:45)\"}}";
@@ -77,6 +83,30 @@ public class JsonTest {
         A actual = Json.decodeValue(input, A.class);
 
         Assert.assertEquals(expected, actual);
+
+        try {
+            Json.decodeValue("", A.class);
+            Assert.fail("Should be exception");
+        } catch (Exception ex) {
+            Assert.assertEquals(JsonDecodeException.class, ex.getClass());
+            Assert.assertEquals("Failed to decode. Inputted JSON as string for mapping is blank.", ex.getMessage());
+        }
+
+        try {
+            Json.decodeValue("   ", A.class);
+            Assert.fail("Should be exception");
+        } catch (Exception ex) {
+            Assert.assertEquals(JsonDecodeException.class, ex.getClass());
+            Assert.assertEquals("Failed to decode. Inputted JSON as string for mapping is blank.", ex.getMessage());
+        }
+
+        try {
+            Json.decodeValue(input, null);
+            Assert.fail("Should be exception");
+        } catch (Exception ex) {
+            Assert.assertEquals(JsonDecodeException.class, ex.getClass());
+            Assert.assertEquals("Failed to decode. Expected result class is null.", ex.getMessage());
+        }
     }
 
     @Test

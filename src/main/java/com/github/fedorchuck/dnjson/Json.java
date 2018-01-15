@@ -43,6 +43,9 @@ public class Json {
      * @since 0.1.0
      **/
     public static String encode(Object obj) throws JsonEncodeException {
+        if (obj == null)
+            throw new JsonEncodeException("Failed to encode as JSON: unsupported input value");
+
         try {
             return new JsonSerializer().writeValueAsString(obj);
         } catch (Exception e) {
@@ -62,7 +65,11 @@ public class Json {
      * @since 0.1.0
      **/
     public static <T> T decodeValue(String str, Class<T> clazz) throws JsonDecodeException {
-        //todo check is str is null or empty
+        if ((str == null || str.isEmpty() || str.trim().isEmpty()))//is blank
+            throw new JsonDecodeException("Failed to decode. Inputted JSON as string for mapping is blank.");
+        if (clazz == null)
+            throw new JsonDecodeException("Failed to decode. Expected result class is null.");
+
         try {
             return new JsonDeserializer().readValue(str, clazz);
         } catch (Exception e) {
@@ -82,6 +89,9 @@ public class Json {
      * @since 0.1.0
      **/
     public static <T> T decodeValue(InputStream inputStream, Class<T> clazz) throws JsonDecodeException {
+        if (inputStream == null)
+            throw new JsonDecodeException("Failed to decode. Inputted stream is null.");
+
         try {
             final int bufferSize = 1024;
             final char[] buffer = new char[bufferSize];
